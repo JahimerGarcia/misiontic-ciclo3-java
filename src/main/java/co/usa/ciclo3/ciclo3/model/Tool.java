@@ -27,7 +27,7 @@ public class Tool implements Serializable {
 
 
     @OneToMany(mappedBy = "tool", cascade = {CascadeType.PERSIST})
-    @JsonIgnoreProperties("messages")
+    @JsonIgnoreProperties({"messages", "tool", "client"})
     private List<Message> messages;
 
     @OneToMany(mappedBy = "tool", cascade = {CascadeType.PERSIST})
