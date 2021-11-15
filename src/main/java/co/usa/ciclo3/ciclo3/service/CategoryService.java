@@ -32,4 +32,34 @@ public class CategoryService {
             }
         }
     }
+
+    public Category update(Category p){
+        // si el id es nulo, no se puede actualizar
+        if (p.getId()!=null){
+            Optional<Category> paux=categoryRepository.getCategoria(p.getId());
+            if (!paux.isEmpty()){
+                // si tiene nombre entonces actualiza
+                if (p.getName()!=null){
+                    paux.get().setName(p.getName());
+                }
+                // si tiene descripcion entonces actualiza
+                if (p.getDescription()!=null){
+                    paux.get().setDescription(p.getDescription());
+                }
+
+                return categoryRepository.save(paux.get());
+            }
+            
+        }
+        return p;
+    }
+
+    public boolean deleteCategory(int id){
+        Optional<Category> paux=categoryRepository.getCategoria(id);
+        if (!paux.isEmpty()){
+            categoryRepository.deleteCategory(paux.get());
+            return true;
+        }
+        return false;
+    }
 }

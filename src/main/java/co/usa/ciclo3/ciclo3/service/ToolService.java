@@ -32,4 +32,44 @@ public class ToolService {
             }
         }
     }
+
+    public Tool update(Tool p){
+        // si el id es nulo, no se puede actualizar
+        if (p.getId()!=null){
+            Optional<Tool> paux=toolRepository.getTool(p.getId());
+            if (!paux.isEmpty()){
+
+                if (p.getName()!=null){
+                    paux.get().setName(p.getName());
+                }
+
+                if (p.getBrand()!=null){
+                    paux.get().setBrand(p.getBrand());
+                }
+                
+                
+                if (p.getYear()!=null){
+                    paux.get().setYear(p.getYear());
+                }
+                // si tiene descripcion entonces actualiza
+                if (p.getDescription()!=null){
+                    paux.get().setDescription(p.getDescription());
+                }
+
+                return toolRepository.save(paux.get());
+            }
+            
+        }
+        return p;
+    }
+
+
+    public boolean delete(int id){
+        Optional<Tool> paux=toolRepository.getTool(id);
+        if (!paux.isEmpty()){
+            toolRepository.delete(paux.get());
+            return true;
+        }
+        return false;
+    }
 }
