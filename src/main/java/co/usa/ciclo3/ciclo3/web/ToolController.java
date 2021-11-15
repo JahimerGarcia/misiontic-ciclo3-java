@@ -33,6 +33,17 @@ public class ToolController {
         return toolService.save(c);
     }
 
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Tool update(@RequestBody Tool c){
+        return toolService.update(c);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") int id){
+        toolService.delete(id);
+    }
 
 
 
